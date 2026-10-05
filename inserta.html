@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de inserccion</title>
+</head>
+<style>
+
+body{
+    background-color: bisque;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+div {
+    position: relative;
+    left: 0%;
+    background-color: white;
+    padding: 0px 60px 60px 60px;
+    width: 30%;
+    border-radius: 20px;
+    border: black solid 5px;
+
+}
+
+input {
+    font-size: 20px;
+}
+input.boton {
+    border-radius: 5px;
+    border: black solid 5px;
+    background-color: bisque;
+    margin: 20px 0px 0px 0px;
+}
+
+
+</style>
+<body>
+    <div>
+        <h1>Introduce los valores correspondientes</h1>
+    <form action="Inserta.php" method="post">
+    Introduce el nombre: <br>
+    <input type="text" name="nombre" required pattern="[A-Za-záéíóú ]+"><br>
+    Introduce el primer apellido: <br>
+    <input type="text" name="apellido1" required pattern="[A-Za-záéíóú ]+"><br>
+    Introduce el telefono: <br>
+    <input type="text" name="telefono" required pattern="[0-9 ]{9}"> <br>
+    Introduce el email: <br>
+    <input type="email" name="correo" required pattern="[A-Za-záéíóú@.0-9 ]+"> <br>
+    Introduce la contraseña: <br>
+     <input type="password" name="contraseña" required pattern="[A-Za-záéíóú0-9. ]+"><br>
+    <input class="boton" type="submit" value="Insertar usuario"> <br>
+    </form>
+    
+    </div>
+</body>
+</html>
