@@ -16,8 +16,7 @@
 <body>
 
 <?php 
-echo "<div>";
-echo "<h1>Login</h1>";
+
 
 session_start();
 if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -27,14 +26,23 @@ $password = $_POST['password'];
 
 $conexion = mysqli_connect("localhost","root","","base1")or die("Problemas con la conexion");
 
-$consulta = mysqli_query($conexion,"Select id_Usuarios from usuarios where email = '$correo' and contraseña= '$password'");
+$consulta = mysqli_query($conexion,"Select id_Usuarios,Perfil,nombre,email from usuarios where email = '$correo' and contraseña= '$password'");
 $usuario = mysqli_fetch_assoc($consulta);
 
+ $hora = date('Y-m-d H:i:s');
 
 if(!empty($usuario)){
-    echo "<h1>Bienvenido a tu pagina personal</h1>";
-    echo "<a href='RellenaPerfil.html'>Rellenar el perfil</a>";
-    $hora = date('Y-m-d');
+    echo "<h1>Login correcto</h1>";
+  
+    $_SESSION['perfil'] = $usuario['Perfil'];
+    $_SESSION['nombre'] = $usuario['nombre'];
+    $_SESSION['email'] = $usuario['email'];
+
+    if($_SESSION['perfil'] == "Admin"){
+          echo "<a href='perfilAdmin.php'>Entrar a tu perfil</a>";
+    }else{
+          echo "<a href='RellenaPerfil.html'>Entrar a tu perfil</a>";
+    }
     $consulta = mysqli_query($conexion,"Update usuarios set hora_login='$hora'  where email = '$correo' and contraseña= '$password'");
 
 
@@ -50,6 +58,8 @@ else {
     $num_Intentos = $usuario1['num_intentos'];
         if($num_Intentos <1){
             echo "<h1>CUENTA BLOQUEADA</h1>";
+            echo "Tienes que esperar hasta las: ";
+            echo $hora;
 
         }
         else {

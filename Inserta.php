@@ -56,11 +56,12 @@ a {
 <body >
 
 <?php 
-$numIntentos = 5;
+$numIntentos = 3;
+$perfilPredeterminado = "cliente";
 
     $conexion = mysqli_connect("localhost","root","","base1")or die("Problemas con la conexion");
-     $consulta = mysqli_query($conexion,"Insert into usuarios(nombre,apellido,telefono,email,contraseña,contraseña_cifrada,num_intentos)
-                                        values('".$_POST['nombre']."','".$_POST['apellido1']."','".$_POST['telefono']."','".$_POST['correo']."','".$_POST['contraseña']."','".md5($_POST['contraseña'])."','".$numIntentos."')");
+     $consulta = mysqli_query($conexion,"Insert into usuarios(nombre,apellido,telefono,email,contraseña,contraseña_cifrada,num_intentos,Perfil)
+                                        values('".$_POST['nombre']."','".$_POST['apellido1']."','".$_POST['telefono']."','".$_POST['correo']."','".$_POST['contraseña']."','".md5($_POST['contraseña'])."','".$numIntentos."','".$perfilPredeterminado."')");
 
    
 
