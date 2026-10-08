@@ -37,19 +37,19 @@ input.boton {
 
 </style>
 <body>
-    <div>
+    <div style="position: relative;left: 30%;">
         <h1>Introduce los valores correspondientes</h1>
     <form action="Inserta.php" method="post">
     Introduce el nombre: <br>
-    <input type="text" name="nombre" required pattern="[A-Za-záéíóú ]+"><br>
+    <input type="text" name="nombre" required pattern="[A-Za-záéíóúÁÉÍÓÚ ]+"><br>
     Introduce el primer apellido: <br>
-    <input type="text" name="apellido1" required pattern="[A-Za-záéíóú ]+"><br>
+    <input type="text" name="apellido1" required pattern="[A-Za-záéíóúÁÉÍÓÚ ]+"><br>
     Introduce el telefono: <br>
     <input type="text" name="telefono" required pattern="[0-9 ]{9}"> <br>
     Introduce el email: <br>
-    <input type="email" name="correo" required pattern="[A-Za-záéíóú@.0-9 ]+"> <br>
+    <input type="email" name="correo" required pattern="[A-Za-záéíóúÁÉÍÓÚ@.0-9 ]+"> <br>
     Introduce la contraseña: <br>
-     <input type="password" name="contraseña" required pattern="[A-Za-záéíóú0-9. ]+"><br>
+     <input type="password" name="contraseña" required pattern="[A-Za-záéíóúÁÉÍÓÚ0-9. ]+"><br>
     <input class="boton" type="submit" value="Insertar usuario"> <br>
     </form>
     

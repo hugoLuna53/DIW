@@ -38,6 +38,7 @@ if(!empty($usuario)){
     $_SESSION['nombre'] = $usuario['nombre'];
     $_SESSION['email'] = $usuario['email'];
 
+
     if($_SESSION['perfil'] == "Admin"){
           echo "<a href='perfilAdmin.php'>Entrar a tu perfil</a>";
     }else{
@@ -56,10 +57,11 @@ else {
     if(!empty($usuario1)){
 
     $num_Intentos = $usuario1['num_intentos'];
-        if($num_Intentos <1){
+        if($num_Intentos <=1){
             echo "<h1>CUENTA BLOQUEADA</h1>";
-            echo "Tienes que esperar hasta las: ";
-            echo $hora;
+            $num_Intentos--;
+             $id = $usuario1['id_Usuarios'];
+        $consulta2 = mysqli_query($conexion,"Update usuarios set num_intentos = '$num_Intentos'where id_Usuarios = '$id'");
 
         }
         else {
