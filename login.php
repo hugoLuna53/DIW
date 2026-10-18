@@ -11,7 +11,7 @@
     Introduce el email: 
     <input type="email" name="email" placeholder="Obligatorio" required> <br>
     Introduce la contraseña: 
-    <input type="password" name="password"> <br>
+    <input type="password" name="password" require placeholder="Obligatorio"> <br>
     <input type="submit" value="Entrar">
     </form>
     

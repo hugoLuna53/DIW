@@ -31,6 +31,36 @@ $usuario = mysqli_fetch_assoc($consulta);
 
  $hora = date('Y-m-d H:i:s');
 
+ $consultaBloqueo = mysqli_query($conexion,"Select id_Usuarios,hora_bloqueo,num_intentos from usuarios where email = '$correo'");
+ $datosBloqueo = mysqli_fetch_assoc($consultaBloqueo);
+ if(!empty($datosBloqueo)&&$datosBloqueo['num_intentos'] <=0){
+
+    $desbloqueo = strtotime($datosBloqueo['hora_bloqueo']) + (15*60);
+    $segundosRestantes = $desbloqueo - time();
+
+    if($segundosRestantes>0){
+
+    $minutosRestantes = floor($segundosRestantes/60);
+    $segundoSolos = $segundosRestantes%60;
+
+     echo "CUENTA BLOQUEADA";
+     echo "Quedan " . $minutosRestantes . " minutos y ". $segundoSolos . " segundos";
+
+
+    }
+
+    else {
+    $num_int = 3;
+    $id = $datosBloqueo['id_Usuarios'];
+    echo "Ya han pasado esos 15 min";
+    echo "CUENTA DESBLOQUEADA";
+    $actualizaIntentos = mysqli_query($conexion,"Update usuarios set num_intentos = '$num_int'where id_Usuarios= '$id'");
+
+    }
+
+
+ }
+
 if(!empty($usuario)){
     echo "<h1>Login correcto</h1>";
   
@@ -55,13 +85,14 @@ else {
     $usuario1= mysqli_fetch_assoc($consulta1);
 
     if(!empty($usuario1)){
-
-    $num_Intentos = $usuario1['num_intentos'];
-        if($num_Intentos <=1){
+        $num_Intentos = $usuario1['num_intentos'];
+    
+    if($num_Intentos <=1){
             echo "<h1>CUENTA BLOQUEADA</h1>";
+            echo "<h1>Tiempo de espera para volver a intentarlos: 15 minutos</h1>";
             $num_Intentos--;
              $id = $usuario1['id_Usuarios'];
-        $consulta2 = mysqli_query($conexion,"Update usuarios set num_intentos = '$num_Intentos'where id_Usuarios = '$id'");
+        $consulta2 = mysqli_query($conexion,"Update usuarios set num_intentos = '$num_Intentos',hora_bloqueo = '$hora' where id_Usuarios = '$id'");
 
         }
         else {
@@ -78,11 +109,7 @@ else {
 
 
     }
-    else{
-        
-       
-
-    }
+    
     
 
 
