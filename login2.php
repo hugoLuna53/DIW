@@ -106,11 +106,15 @@ if(!empty($usuario)){
 
 
     if($_SESSION['perfil'] == "Admin"){
-          echo "<a href='perfilAdmin.php'>Entrar a tu perfil</a>";
+         header("Location: perfilAdmin.php");
+         $consulta = mysqli_query($conexion,"Update usuarios set hora_login='$hora'  where email = '$correo' and contraseña= '$password'");
+         exit;
     }else{
-          echo "<a href='RellenaPerfil.html'>Entrar a tu perfil</a>";
-    }
-    $consulta = mysqli_query($conexion,"Update usuarios set hora_login='$hora'  where email = '$correo' and contraseña= '$password'");
+            header("Location: RellenaPerfil.php");
+            $consulta = mysqli_query($conexion,"Update usuarios set hora_login='$hora'  where email = '$correo' and contraseña= '$password'");
+            exit;
+    }                                   
+    
 
 
 }
@@ -170,7 +174,7 @@ else {
 
 }
 else {
-    echo "Accede desde el formulario";
+    echo "<h1>Accede desde el formulario</h1>";
 }
 
 
