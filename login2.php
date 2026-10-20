@@ -24,6 +24,42 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 $correo = $_POST['email'];
 $password = $_POST['password'];
 
+
+// ===== VALIDACION POR DISTANCIA (NUEVO) =====
+define('LAT_REF', 36.866301289247865);
+define('LON_REF', -6.178468465805054);
+define('DISTANCIA_MAX', 50); // metros
+
+function distanciaMetros($lat1, $lon1, $lat2, $lon2) {
+    $radioTierra = 6371000;
+    $dLat = deg2rad($lat2 - $lat1);
+    $dLon = deg2rad($lon2 - $lon1);
+    $a = sin($dLat / 2) * sin($dLat / 2) +
+         cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+         sin($dLon / 2) * sin($dLon / 2);
+    return $radioTierra * 2 * atan2(sqrt($a), sqrt(1 - $a));
+}
+
+$lat = $_POST['lat'] ?? null;
+$lon = $_POST['lon'] ?? null;
+
+if (!is_numeric($lat) || !is_numeric($lon)) {
+    echo "<h1>ERROR: no se pudo obtener tu ubicacion</h1>";
+    echo "<a href='login.php'>Volver al login</a>";
+    echo "</body></html>";
+    exit;
+}
+
+$distancia = distanciaMetros(LAT_REF, LON_REF, (float)$lat, (float)$lon);
+
+if ($distancia > DISTANCIA_MAX) {
+    echo "<h1>ACCESO DENEGADO</h1>";
+    echo "<h2>Estas a " . round($distancia) . " metros del punto permitido (maximo " . DISTANCIA_MAX . " m)</h2>";
+    echo "<a href='login.php'>Volver al login</a>";
+    echo "</body></html>";
+    exit;
+}
+
 $conexion = mysqli_connect("localhost","root","","base1")or die("Problemas con la conexion");
 
 $consulta = mysqli_query($conexion,"Select id_Usuarios,Perfil,nombre,email from usuarios where email = '$correo' and contraseña= '$password'");
