@@ -28,7 +28,7 @@ $password = $_POST['password'];
 // ===== VALIDACION POR DISTANCIA (NUEVO) =====
 define('LAT_REF', 36.866301289247865);
 define('LON_REF', -6.178468465805054);
-define('DISTANCIA_MAX', 50); // metros
+define('DISTANCIA_MAX', 100); // metros
 
 function distanciaMetros($lat1, $lon1, $lat2, $lon2) {
     $radioTierra = 6371000;
@@ -108,6 +108,7 @@ if(!empty($usuario)){
     if($_SESSION['perfil'] == "Admin"){
          header("Location: perfilAdmin.php");
          $consulta = mysqli_query($conexion,"Update usuarios set hora_login='$hora'  where email = '$correo' and contraseña= '$password'");
+         
          exit;
     }else{
             header("Location: RellenaPerfil.php");
