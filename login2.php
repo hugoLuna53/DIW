@@ -104,15 +104,15 @@ if(!empty($usuario)){
     $_SESSION['nombre'] = $usuario['nombre'];
     $_SESSION['email'] = $usuario['email'];
 
-
+    $loginCorreNumIntentos =3;
     if($_SESSION['perfil'] == "Admin"){
          header("Location: perfilAdmin.php");
-         $consulta = mysqli_query($conexion,"Update usuarios set hora_login='$hora'  where email = '$correo' and contraseña= '$password'");
+         $consulta = mysqli_query($conexion,"Update usuarios set hora_login='$hora',num_intentos= $loginCorreNumIntentos  where email = '$correo' and contraseña= '$password'");
          
          exit;
     }else{
             header("Location: RellenaPerfil.php");
-            $consulta = mysqli_query($conexion,"Update usuarios set hora_login='$hora'  where email = '$correo' and contraseña= '$password'");
+           $consulta = mysqli_query($conexion,"Update usuarios set hora_login='$hora',num_intentos= $loginCorreNumIntentos  where email = '$correo' and contraseña= '$password'");
             exit;
     }                                   
     

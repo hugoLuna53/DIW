@@ -57,7 +57,7 @@ a {
 
 <?php 
 $numIntentos = 3;
-$perfilPredeterminado = "cliente";
+$perfilPredeterminado = "Cliente";
 
     $conexion = mysqli_connect("localhost","root","","base1")or die("Problemas con la conexion");
      $consulta = mysqli_query($conexion,"Insert into usuarios(nombre,apellido,telefono,email,contraseña,contraseña_cifrada,num_intentos,Perfil)
